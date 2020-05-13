@@ -15,6 +15,17 @@ export function fetchById(id) {
     })
 }
 
+export function create(params) {
+  return request({
+    url: `${baseURL}/home/advertise/create`,
+    data: {
+      ...params
+    },
+    method: 'post',
+  })
+}
+
+
 export function update(id,params) {
     return request({
         url: `${baseURL}/home/advertise/update/${id}`,

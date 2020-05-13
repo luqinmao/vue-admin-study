@@ -1,6 +1,11 @@
 <!-- 歌单列表 -->
 <template>
   <div>
+
+    <el-button class="filter-item" style="margin: 10px;margin-left: 30px" type="primary" icon="el-icon-edit" @click="onCreate() " >
+      添加广告
+    </el-button>
+
     <el-table v-loading="loading" :data="playlist">
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column label="封面" width="100">
@@ -17,7 +22,6 @@
         </template>
       </el-table-column>
     </el-table>
-
     <!-- 确认删除的对话框 -->
     <el-dialog title="提示" :visible.sync="delDialogVisible" width="30%">
       <span>确定删除该广告吗</span>
@@ -53,10 +57,10 @@
       getList() {
         this.loading = true
         fetchList({
-          start: this.playlist.length,
-          count: this.count
+          pageNum: this.playlist.length,
+          pageSize: this.count
         }).then(res => {
-          console.log('playlist response ======  '+res.data.list)
+          console.log('playlist response ======  ' + res.data.list)
           this.playlist = this.playlist.concat(res.data.list)
           if (res.data.length < this.count) {
             scroll.end()
@@ -65,8 +69,11 @@
         })
       },
       onEdit(row) {
-        console.log('row.id======= '+row.id)
+        console.log('row.id======= ' + row.id)
         this.$router.push(`/playlist/edit/${row.id}`)
+      },
+      onCreate() {
+        this.$router.push(`/playlist/create`)
       },
       onDel(row) {
         this.delDialogVisible = true
@@ -76,7 +83,7 @@
         del(this.info.id).then((res) => {
           this.delDialogVisible = false
           console.log(res)
-          if (res.data.deleted > 0) {
+          if (res.code === 200) {
             this.playlist = []
             this.getList()
             this.$message({

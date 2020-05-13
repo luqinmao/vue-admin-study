@@ -49,6 +49,11 @@ export const constantRoutes = [
         import ('@/views/playlist/list'),
       meta: { title: '广告管理', icon: 'table' }
     }, {
+      path: 'create',
+      component: () => import ('@/views/playlist/create'),
+      meta: { title: '添加广告', icon: 'table' },
+      hidden: true
+    }, {
       path: 'edit/:id',
       component: () => import ('@/views/playlist/edit'),
       meta: { title: '广告管理', icon: 'table' },
