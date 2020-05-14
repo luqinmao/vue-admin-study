@@ -37,6 +37,15 @@ module.exports = {
       errors: true
     },
     proxy: {
+      //配置跨域
+      // '/image': {
+      //   target: "http://mallmytest.oss-cn-beijing.aliyuncs.com/image",
+      //   ws:true,
+      //   changOrigin:true,
+      //   pathRewrite:{
+      //     '^/image':'/'
+      //   }
+      // }
       // change xxx-api/login => mock/login
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       [process.env.VUE_APP_BASE_API]: {
@@ -48,6 +57,7 @@ module.exports = {
       }
     },
     after: require('./mock/mock-server.js')
+
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
